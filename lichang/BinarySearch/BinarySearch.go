@@ -17,7 +17,7 @@ func BinarySearch(a []int, v int) int {
 	hi := n - 1
 
 	for lo <= hi {
-		mid := (lo + hi) / 2
+		mid := lo + (hi-lo)/2
 		if a[mid] == v {
 			return mid
 		} else if a[mid] < v {
@@ -44,7 +44,7 @@ func bs(a []int, v int, low, high int) int {
 		return -1
 	}
 
-	mid := (low + high) / 2
+	mid := low + (high-low)/2
 	if a[mid] == v {
 		return mid
 	} else if a[mid] > v {
@@ -65,10 +65,10 @@ func BinarySearchFirst(a []int, v int) int {
 	hi := n - 1
 	var mid int
 	for lo <= hi {
-		mid = (lo + hi) / 2
-		if a[mid] > v {
+		mid = lo + (hi-lo)/2
+		if a[mid] < v {
 			lo = mid + 1
-		} else if a[mid] < v {
+		} else if a[mid] > v {
 			hi = mid - 1
 		} else {
 			if mid == 0 || a[mid-1] != v {
@@ -92,7 +92,7 @@ func BinarySearchLast(a []int, v int) int {
 	hi := n - 1
 	var mid int
 	for lo <= hi {
-		mid = (lo + hi) / 2
+		mid = lo + (hi-lo)/2
 		if a[mid] > v {
 			hi = mid - 1
 		} else if a[mid] < v {
@@ -119,16 +119,14 @@ func BinarySearchFirstGT(a []int, v int) int {
 	hi := n - 1
 	var mid int
 	for lo <= hi {
-		mid = (lo + hi) / 2
-		if a[mid] > v {
-			hi = mid - 1
-		} else if a[mid] < v {
+		mid = lo + (hi-lo)/2
+		if a[mid] < v {
 			lo = mid + 1
 		} else {
-			if mid != n-1 && a[mid+1] > v {
-				return mid + 1
+			if mid == 0 || a[mid-1] < v {
+				return mid
 			} else {
-				lo = hi + 1
+				hi = mid - 1
 			}
 		}
 	}
